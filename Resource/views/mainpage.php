@@ -1,5 +1,5 @@
-//セッションを回す
 <?php
+//セッションを回す
 $session_time = 86400;
 ini_set('session.gc_divisor', 1);
 ini_set('session.gc_maxlifetime', $session_time );
@@ -20,12 +20,26 @@ $user_id = $_SESSION['user_id'];
 </head>
 <body>
     <header>
-        <div class="home"></div>
-        <div class="search"></div>
+        <div class="home">
+            <a href="mainpage.php">
+                <img src="img/logo.jpg" alt="header image">
+            </a>
+        </div>
+        <form action="mainpage.php" method="POST" class="search">
+            <?php
+            if(isset($_POST['search'])){
+                $result_word=htmlspecialchars($_POST['search'],ENT_QUOTES,'UTF-8');
+            }else{
+                $result_word = NULL;
+            }
+            ?>
+            <input type="text" placeholder="検索ワードを入力してください" name="search" value="<?php if(isset($result_word))echo$result_word;?>">
+            <input type="image" src="img/search.jpg" name="submit"> 
+        </form>
     </header>
     <article class="main">
         <div class="index">
-
+                
         </div>
         <div class="main objects">
             <?php
@@ -46,7 +60,7 @@ $user_id = $_SESSION['user_id'];
                 die();//エラーをはくようにする
             }
             ?>
-            <section class="item">
+            <section class="objects">
                 <a href="">
                     <div class="thumbnail"></div>
                     <div class="time"></div>
